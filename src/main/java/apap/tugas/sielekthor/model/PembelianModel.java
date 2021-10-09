@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,4 +41,7 @@ public class PembelianModel implements Serializable {
     @NotNull
     @Column(name = "is_cash", nullable = false)
     private Integer isCash;
+
+    @OneToMany(mappedBy = "pembelian")
+    List<PembelianModel> kuantitas;
 }

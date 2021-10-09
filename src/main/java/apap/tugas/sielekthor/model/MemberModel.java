@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,4 +42,7 @@ public class MemberModel implements Serializable {
     @NotNull
     @Column(name = "jenis_kelamin", nullable = false)
     private Integer jenisKelamin;
+
+    @OneToMany(mappedBy = "member")
+    List<KuantitasPembelianModel> kuantitas;
 }
