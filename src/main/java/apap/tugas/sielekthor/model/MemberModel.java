@@ -1,9 +1,5 @@
 package apap.tugas.sielekthor.model;
 
-<<<<<<< HEAD
-public class MemberModel {
-}
-=======
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,4 +46,3 @@ public class MemberModel implements Serializable {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PembelianModel> listPembelian;
 }
->>>>>>> aea12075ce9706571f6bdfdf81cccacc844dbe38

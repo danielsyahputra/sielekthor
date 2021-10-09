@@ -1,8 +1,5 @@
 package apap.tugas.sielekthor.model;
 
-<<<<<<< HEAD
-public class TipeModel {
-=======
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,5 +34,4 @@ public class TipeModel implements Serializable {
 
     @OneToMany(mappedBy = "tipe", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BarangModel> listBarang;
->>>>>>> aea12075ce9706571f6bdfdf81cccacc844dbe38
 }
