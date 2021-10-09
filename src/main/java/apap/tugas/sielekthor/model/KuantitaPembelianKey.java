@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Embeddable
 public class KuantitaPembelianKey implements Serializable {
     @Column(name = "id_member")
-    private Long idMember;
+    private Long idBarang;
 
     @Column(name = "id_pembelian")
     private Long idPembelian;

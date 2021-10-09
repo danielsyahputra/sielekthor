@@ -13,14 +13,15 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Entity
+@Table(name = "kuantitas_pembelian_barang")
 public class KuantitasPembelianModel implements Serializable {
     @EmbeddedId
     private KuantitaPembelianKey idKuantitasPembelian;
 
     @ManyToOne
-    @MapsId("idMember")
-    @JoinColumn(name = "id_member")
-    private MemberModel member;
+    @MapsId("idBarang")
+    @JoinColumn(name = "id_barang")
+    private MemberModel barang;
 
     @ManyToOne
     @MapsId("idPembelian")

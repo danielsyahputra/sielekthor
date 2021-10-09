@@ -22,7 +22,7 @@ import java.util.List;
 public class MemberModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long noMember;
+    private Long idMember;
 
     @NotNull
     @Size(max = 30)
@@ -43,6 +43,6 @@ public class MemberModel implements Serializable {
     @Column(name = "jenis_kelamin", nullable = false)
     private Integer jenisKelamin;
 
-    @OneToMany(mappedBy = "member")
-    List<KuantitasPembelianModel> kuantitas;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PembelianModel> listPembelian;
 }

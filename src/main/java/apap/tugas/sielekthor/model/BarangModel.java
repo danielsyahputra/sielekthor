@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,4 +60,7 @@ public class BarangModel implements Serializable {
     @JoinColumn(name = "id_tipe", referencedColumnName = "idTipe", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TipeModel tipe;
+
+    @OneToMany(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<KuantitasPembelianModel> listKuantitas;
 }
