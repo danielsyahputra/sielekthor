@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Embeddable
-public class KuantitaPembelianKey implements Serializable {
+public class TanggalGaransiPembelianKey implements Serializable {
     @Column(name = "id_barang")
     private Long idBarang;
 

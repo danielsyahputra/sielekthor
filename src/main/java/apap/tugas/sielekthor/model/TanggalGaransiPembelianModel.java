@@ -4,19 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Entity
-@Table(name = "kuantitas_pembelian_barang")
-public class KuantitasPembelianModel implements Serializable {
+@Table(name = "tanggal_garansi_pembelian_barang")
+public class TanggalGaransiPembelianModel implements Serializable {
     @EmbeddedId
-    private KuantitaPembelianKey idKuantitasPembelian;
+    private TanggalGaransiPembelianKey idTanggalGaransiPembelian;
 
     @ManyToOne
     @MapsId("idBarang")
@@ -28,5 +30,6 @@ public class KuantitasPembelianModel implements Serializable {
     @JoinColumn(name = "id_pembelian")
     private PembelianModel pembelian;
 
-    private Integer kuantitas;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date tanggalGaransi;
 }
