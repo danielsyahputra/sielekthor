@@ -39,4 +39,11 @@ public class BarangController {
         model.addAttribute("pesan", "Barang dengan kode barang " + barang.getKodeBarang() + " berhasil ditambahkan.");
         return "info";
     }
+
+    @GetMapping("/barang/viewall")
+    public String viewAllBarang(Model model) {
+        List<BarangModel> listBarang = barangService.getListBarang();
+        model.addAttribute("listBarang", listBarang);
+        return "viewall-barang";
+    }
 }

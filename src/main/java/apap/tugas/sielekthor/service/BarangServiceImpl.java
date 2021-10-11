@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,5 +17,10 @@ public class BarangServiceImpl implements BarangService{
     @Override
     public void addBarang(BarangModel barang) {
         barangDb.save(barang);
+    }
+
+    @Override
+    public List<BarangModel> getListBarang() {
+        return barangDb.findAll();
     }
 }
