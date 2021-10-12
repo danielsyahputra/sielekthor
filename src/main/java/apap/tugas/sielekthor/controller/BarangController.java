@@ -54,4 +54,19 @@ public class BarangController {
         model.addAttribute("barang", barang);
         return "detail-barang";
     }
+
+    @GetMapping("/barang/ubah/{idBarang}")
+    public String ubahBarangByIdBarangFormPage(@PathVariable Long idBarang, Model model) {
+        BarangModel barang = barangService.getBarangByIdBarang(idBarang);
+        model.addAttribute("barang", barang);
+        return "form-ubah-barang";
+    }
+
+    @PostMapping("/barang/ubah")
+    public String ubahBarangSubmit(@ModelAttribute BarangModel barang, Model model) {
+        BarangModel updatedBarang = barangService.ubahBarang(barang);
+        String kodeBarang = updatedBarang.getKodeBarang();
+        model.addAttribute("pesan", String.format("Barang dengan kode %s berhasil diubah!", kodeBarang));
+        return "info";
+    }
 }

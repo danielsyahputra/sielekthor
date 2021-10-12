@@ -31,4 +31,10 @@ public class BarangServiceImpl implements BarangService{
         if (barang.isPresent()) return barang.get();
         return null;
     }
+
+    @Override
+    public BarangModel ubahBarang(BarangModel barang) {
+        barangDb.save(barang);
+        return barang;
+    }
 }
