@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -45,5 +46,12 @@ public class BarangController {
         List<BarangModel> listBarang = barangService.getListBarang();
         model.addAttribute("listBarang", listBarang);
         return "viewall-barang";
+    }
+
+    @GetMapping("/barang/{idBarang}")
+    public String viewDetailBarang(@PathVariable Long idBarang, Model model) {
+        BarangModel barang = barangService.getBarangByIdBarang(idBarang);
+        model.addAttribute("barang", barang);
+        return "detail-barang";
     }
 }

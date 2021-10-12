@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    <object th:include="fragments/fragment :: title (current='Home')" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='List Barang')" th:remove="tag"></object>
 </head>
 <body>
     <div th:replace="fragments/fragment :: navbar"></div>
@@ -35,7 +35,7 @@
                             <i class="material-icons">edit</i>
                         </a>
                         <a class="btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                        <a class="waves-effect waves-light btn-small">Lihat</a>
+                        <a th:href="@{/barang/} + ${barang.idBarang}" class="waves-effect waves-light btn-small">Lihat</a>
                     </td>
                 </tr>
             </tbody>
