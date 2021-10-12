@@ -12,7 +12,6 @@
         <!-- CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
 
     <head th:fragment="title">
@@ -28,9 +27,11 @@
             <nav>
                 <div class="nav-wrapper orange darken-1">
                     <div class="container">
-                        <a href="" class="brand-logo">SIELEKTHOR</a>
+                        <a th:href="@{/}" class="brand-logo">SIELEKTHOR</a>
                         <ul class="right hide-on-med-and-down">
-                            <li><a href="">Barang</a></li>
+                            <li th:classappend="${#request.requestURI.contains('/barang') ? 'active':''}">
+                                <a th:href="@{/barang/viewall}">Barang</a>
+                            </li>
                             <li><a href="">Pembelian</a></li>
                             <li><a href="">Filter Pembelian</a></li>
                         </ul>
@@ -39,5 +40,8 @@
             </nav>
         </div>
     </div>
+    <body th:fragment="materializejs">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </body>
 </body>
 </html>

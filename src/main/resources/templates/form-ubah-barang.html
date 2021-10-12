@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Ubah Detail Barang')" th:remove="tag"></object>
+</head>
+<body>
+    <div th:replace="fragments/fragment :: navbar"></div>
+    <div class="container">
+        <h3 class="center-align grey-text text-darken-1">Ubah Detail Barang</h3>
+        <div class="card-panel">
+            <form th:action="@{/barang/ubah}" th:object="${barang}" class="col s12" method="post">
+                <input type="hidden" th:field="*{idBarang}" />
+                <input type="hidden" th:field="*{tipe.idTipe}" />
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input id="nama_barang" name="namaBarang" th:value="*{namaBarang}" type="text" class="validate">
+                        <label for="nama_barang">Nama Barang</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="kode_barang" name="kodeBarang" th:value="*{kodeBarang}" type="text" class="" readonly>
+                        <label for="kode_barang">Kode Barang</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="merk_barang" name="merkBarang" th:value="*{merkBarang}" type="text" class="" readonly>
+                        <label for="merk_barang">Merk Barang</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="stok_barang" name="stokBarang" th:value="*{stokBarang}" type="text" class="validate">
+                        <label for="stok_barang">Stok Barang</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="garansi_toko" name="jumlahGaransi" th:value="*{jumlahGaransi}" type="text" class="validate">
+                        <label for="garansi_toko">Jumlah Garansi Toko</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="deskripsi" name="deskripsiBarang" th:value="*{deskripsiBarang}" type="text" class="validate">
+                        <label for="deskripsi">Deskripsi Barang</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="tipe" name="tipe" th:placeholder="*{tipe.namaTipe}" type="text" class="">
+                        <label for="tipe">Tipe Barang</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="harga" name="hargaBarang" th:value="*{hargaBarang}" type="text" class="validate">
+                        <label for="harga">Harga Barang</label>
+                    </div>
+                </div>
+                <button type="submit" class="waves-effect waves-light btn indigo lighten-1">
+                    <i class="material-icons left">send</i>
+                    simpan
+                </button>
+            </form>
+        </div>
+    </div>
+    <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
+</body>
+</html>

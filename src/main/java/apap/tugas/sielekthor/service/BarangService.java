@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface BarangService {
     void addBarang(BarangModel barang);
+    List<BarangModel> getListBarang();
+    BarangModel getBarangByIdBarang(Long idBarang);
+    BarangModel ubahBarang(BarangModel barang);
 }
