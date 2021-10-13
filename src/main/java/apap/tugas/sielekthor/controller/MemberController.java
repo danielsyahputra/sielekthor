@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class MemberController {
     @Qualifier("memberServiceImpl")
@@ -29,5 +31,12 @@ public class MemberController {
         memberService.addMember(member);
         model.addAttribute("pesan", String.format("Member dengan nama %s berhasil ditambahkan!", member.getNamaMember()));
         return "info";
+    }
+
+    @GetMapping("/member")
+    public String viewAllMember(Model model) {
+        List<MemberModel> listMember = memberService.getListMember();
+        model.addAttribute("listMember", listMember);
+        return "viewall-member";
     }
 }
