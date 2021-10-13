@@ -25,7 +25,7 @@ public class BarangController {
     @Autowired
     private TipeService tipeService;
 
-    @GetMapping("/barang/add")
+    @GetMapping("/barang/tambah")
     public String addBarangFormPage(Model model) {
         BarangModel barang = new BarangModel();
         List<TipeModel> listTipe = tipeService.getListTipe();
@@ -34,14 +34,14 @@ public class BarangController {
         return "form-add-barang";
     }
 
-    @PostMapping("/barang/add")
+    @PostMapping("/barang/tambah")
     public String addAgensiSubmitPage(@ModelAttribute BarangModel barang, Model model) {
         barangService.addBarang(barang);
         model.addAttribute("pesan", "Barang dengan kode barang " + barang.getKodeBarang() + " berhasil ditambahkan.");
         return "info";
     }
 
-    @GetMapping("/barang/viewall")
+    @GetMapping("/barang")
     public String viewAllBarang(Model model) {
         List<BarangModel> listBarang = barangService.getListBarang();
         model.addAttribute("listBarang", listBarang);
