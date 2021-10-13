@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Tambah Member')" th:remove="tag"></object>
+</head>
+<body>
+    <div th:replace="fragments/fragment :: navbar"></div>
+    <div class="container">
+        <h3 class="center-align grey-text text-darken-1">Tambah Member</h3>
+        <form th:action="@{/member/tambah}" th:object="${member}" class="col s12" method="post">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="nama_member" name="namaMember" type="text" class="validate">
+                    <label for="nama_member">Nama Member</label>
+                </div>
+            </div>
+            <button type="submit" class="waves-effect waves-light btn indigo lighten-1">
+                <i class="material-icons left">send</i>
+                simpan
+            </button>
+        </form>
+    </div>
+    <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
+</body>
+</html>
