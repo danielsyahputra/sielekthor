@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -38,5 +39,19 @@ public class MemberController {
         List<MemberModel> listMember = memberService.getListMember();
         model.addAttribute("listMember", listMember);
         return "viewall-member";
+    }
+
+    @GetMapping("/member/ubah/{idMember}")
+    public String ubahMemberFormPage(@PathVariable Long idMember, Model model) {
+        MemberModel member = memberService.getMemberByIdMember(idMember);
+        model.addAttribute("member", member);
+        return "form-ubah-member";
+    }
+
+    @PostMapping("/member/ubah")
+    public String ubahMemberSubmitPage(@ModelAttribute MemberModel member, Model model) {
+        MemberModel updatedMember = memberService.ubahMember(member);
+        model.addAttribute("pesan", String.format("Member dengan id %d berhasil diubah", updatedMember.getIdMember()));
+        return "info";
     }
 }

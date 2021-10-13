@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,6 +23,19 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public List<MemberModel> getListMember() {
         return memberDb.findAll();
+    }
+
+    @Override
+    public MemberModel getMemberByIdMember(Long idMember) {
+        Optional<MemberModel> member = memberDb.findByIdMember(idMember);
+        if (member.isPresent()) return member.get();
+        return null;
+    }
+
+    @Override
+    public MemberModel ubahMember(MemberModel member) {
+        memberDb.save(member);
+        return member;
     }
 
 
