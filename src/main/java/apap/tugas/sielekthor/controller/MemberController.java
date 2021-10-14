@@ -51,7 +51,7 @@ public class MemberController {
     @PostMapping("/member/ubah")
     public String ubahMemberSubmitPage(@ModelAttribute MemberModel member, Model model) {
         MemberModel updatedMember = memberService.ubahMember(member);
-        model.addAttribute("pesan", String.format("Member dengan id %d berhasil diubah", updatedMember.getIdMember()));
+        model.addAttribute("pesan", String.format("Data member %d berhasil diubah.", updatedMember.getNamaMember()));
         return "info";
     }
 }
