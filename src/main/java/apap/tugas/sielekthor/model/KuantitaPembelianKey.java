@@ -11,8 +11,6 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 @Embeddable
 public class KuantitaPembelianKey implements Serializable {
     @Column(name = "id_barang")
@@ -20,4 +18,20 @@ public class KuantitaPembelianKey implements Serializable {
 
     @Column(name = "id_pembelian")
     private Long idPembelian;
+
+    public Long getIdBarang() {
+        return idBarang;
+    }
+
+    public void setIdBarang(Long idBarang) {
+        this.idBarang = idBarang;
+    }
+
+    public Long getIdPembelian() {
+        return idPembelian;
+    }
+
+    public void setIdPembelian(Long idPembelian) {
+        this.idPembelian = idPembelian;
+    }
 }

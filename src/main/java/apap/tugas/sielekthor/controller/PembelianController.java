@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,9 +40,10 @@ public class PembelianController {
     public String tambahPembelianFormPage(Model model) {
 
         // Dapatin tanggal hari ini.
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        String dateNow = formatter.format(now);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateNow = LocalDate.now();
+        String dateNowString = formatter.format(dateNow);
+        dateNow = LocalDate.parse(dateNowString, formatter);
 
         PembelianModel pembelian = new PembelianModel();
         pembelian.setListBarang(new ArrayList<>());
@@ -58,9 +61,10 @@ public class PembelianController {
 
     @PostMapping(value = "/pembelian/tambah", params = "tambahBarang")
     private String tambahBarang(@ModelAttribute PembelianModel pembelian, Model model) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        String dateNow = formatter.format(now);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateNow = LocalDate.now();
+        String dateNowString = formatter.format(dateNow);
+        dateNow = LocalDate.parse(dateNowString, formatter);
 
         pembelian.getListBarang().add(new KuantitasPembelianModel());
         model.addAttribute("pembelian", pembelian);
@@ -68,6 +72,37 @@ public class PembelianController {
         model.addAttribute("listMember", memberService.getListMember());
         model.addAttribute("dateNow", dateNow);
         return "form-add-pembelian";
+    }
+
+    @PostMapping(value = "/pembelian/tambah", params = "hapusBarang")
+    private String hapusBarang(@ModelAttribute PembelianModel pembelian,
+                               Model model, HttpServletRequest request) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateNow = LocalDate.now();
+        String dateNowString = formatter.format(dateNow);
+        dateNow = LocalDate.parse(dateNowString, formatter);
+
+        Integer indexBarang = Integer.valueOf(request.getParameter("hapusBarang"));
+        pembelian.getListBarang().remove(indexBarang.intValue());
+        model.addAttribute("pembelian", pembelian);
+        model.addAttribute("listBarang", barangService.getListBarang());
+        model.addAttribute("listMember", memberService.getListMember());
+        model.addAttribute("dateNow", dateNow);
+        return "form-add-pembelian";
+    }
+
+    @PostMapping(value = "/pembelian/tambah", params = "simpan")
+    private String simpanPembelian(@ModelAttribute PembelianModel pembelian, Model model) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dateNow = LocalDate.now();
+        String dateNowString = formatter.format(dateNow);
+        dateNow = LocalDate.parse(dateNowString, formatter);
+        pembelian.setTanggalPembelian(dateNow);
+        pembelianService.addPembelian(pembelian);
+        pembelianService.setTotalHargaPembelian(pembelian);
+        model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %d berhasil ditambahkan!",
+                pembelian.getNomorInvoice()));
+        return "info";
     }
 
     @GetMapping("/pembelian")

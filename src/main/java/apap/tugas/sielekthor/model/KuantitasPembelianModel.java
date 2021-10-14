@@ -1,6 +1,5 @@
 package apap.tugas.sielekthor.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -29,4 +27,11 @@ public class KuantitasPembelianModel implements Serializable {
     private PembelianModel pembelian;
 
     private Integer kuantitas;
+
+    public KuantitasPembelianModel(BarangModel barang, PembelianModel pembelian, Integer kuantitas) {
+        this.idKuantitasPembelian = new KuantitaPembelianKey(barang.getIdBarang(), pembelian.getIdPembelian());
+        this.barang = barang;
+        this.pembelian = pembelian;
+        this.kuantitas = kuantitas;
+    }
 }

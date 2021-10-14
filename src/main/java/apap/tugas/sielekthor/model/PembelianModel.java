@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -34,11 +35,11 @@ public class PembelianModel implements Serializable {
     @NotNull
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date tanggalPembelian;
+    private LocalDate tanggalPembelian;
 
     @NotNull
     @Column(name = "total_pembelian", nullable = false)
-    private Integer totalPembelian;
+    private Integer totalPembelian = 0;
 
     @NotNull
     @Column(name = "is_cash", nullable = false)

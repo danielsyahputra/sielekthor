@@ -11,7 +11,7 @@
     <div class="container">
         <h3 class="center-align grey-text text-darken-1">Tambah Pembelian</h3>
         <form th:action="@{/pembelian/tambah}" th:object="${pembelian}" class="col s12" method="post">
-            <input type="hidden" name="tanggalPembelian" th:field="${dateNow}" />
+            <input type="hidden" th:field="*{tanggalPembelian}"  />
             <div class="row">
                 <div class="input-field col s12 m6">
                     <input id="nama_admin" name="namaAdmin" type="text" class="validate">
@@ -57,11 +57,12 @@
                     <tr th:each="b, iterationStatus : *{listBarang}">
                         <td>
                             <div class="row">
-                                <input type="hidden" th:field="*{listBarang[__${iterationStatus.index}__].pembelian}" th:value="${pembelian}" />
+                                <input type="hidden" th:field="*{listBarang[__${iterationStatus.index}__].pembelian}"
+                                       th:value="${pembelian.idPembelian}" />
                                 <div class="input-field col s12 m5">
                                     <select th:field="*{listBarang[__${iterationStatus.index}__].barang}">
                                         <option value="" selected th:text="'--Pilih Barang--'"></option>
-                                        <option th:each="barang: ${listBarang}" th:value="${barang}"
+                                        <option th:each="barang: ${listBarang}" th:value="${barang.idBarang}"
                                                 th:text="${barang.namaBarang}"></option>
                                     </select>
                                     <label>Nama Barang</label>
@@ -72,7 +73,8 @@
                                     <label for="kuantitas">Kuantitas</label>
                                 </div>
                                 <label>Hapus barang</label><br>
-                                <button type="submit" name="hapusBarang" class="btn-small waves-effect waves-light red">
+                                <button th:value="${iterationStatus.index}" type="submit" name="hapusBarang"
+                                        class="btn-small waves-effect waves-light red">
                                     <i class="material-icons">delete</i>
                                 </button>
                             </div>
@@ -81,7 +83,7 @@
                 </tbody>
 
             </table>
-            <button type="submit" class="waves-effect waves-light btn indigo lighten-1">
+            <button type="submit" name="simpan" class="waves-effect waves-light btn indigo lighten-1">
                 <i class="material-icons left">send</i>
                 simpan
             </button>

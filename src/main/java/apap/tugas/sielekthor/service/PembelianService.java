@@ -4,4 +4,5 @@ import apap.tugas.sielekthor.model.PembelianModel;
 
 public interface PembelianService {
     void addPembelian(PembelianModel pembelian);
+    void setTotalHargaPembelian(PembelianModel pembelian);
 }
