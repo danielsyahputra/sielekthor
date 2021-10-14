@@ -55,5 +55,5 @@ public class PembelianModel implements Serializable {
     private MemberModel member;
 
     @OneToMany(mappedBy = "pembelian", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<KuantitasPembelianModel> listKuantitas;
+    List<KuantitasPembelianModel> listBarang;
 }

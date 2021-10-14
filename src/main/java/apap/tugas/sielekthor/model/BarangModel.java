@@ -62,5 +62,5 @@ public class BarangModel implements Serializable {
     private TipeModel tipe;
 
     @OneToMany(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<KuantitasPembelianModel> listKuantitas;
+    List<KuantitasPembelianModel> listPembelian;
 }
