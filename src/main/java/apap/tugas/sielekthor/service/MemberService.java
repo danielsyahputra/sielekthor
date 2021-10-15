@@ -9,4 +9,5 @@ public interface MemberService {
     List<MemberModel> getListMember();
     MemberModel getMemberByIdMember(Long idMember);
     MemberModel ubahMember(MemberModel member);
+    List<MemberModel> getMemberPalingBanyakBeli();
 }
