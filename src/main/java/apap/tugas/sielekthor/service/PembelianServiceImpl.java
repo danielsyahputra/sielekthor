@@ -1,6 +1,7 @@
 package apap.tugas.sielekthor.service;
 
 import apap.tugas.sielekthor.model.BarangModel;
+import apap.tugas.sielekthor.model.MemberModel;
 import apap.tugas.sielekthor.model.PembelianBarangModel;
 import apap.tugas.sielekthor.model.PembelianModel;
 import apap.tugas.sielekthor.repository.BarangDb;
@@ -63,4 +64,11 @@ public class PembelianServiceImpl implements PembelianService{
     public void hapusPembelian(PembelianModel pembelian) {
         pembelianDb.delete(pembelian);
     }
+
+    @Override
+    public List<PembelianModel> cariPembelianBerdasarkanMemberDanPembayaran(MemberModel member, Integer isCash) {
+        return pembelianDb.findAllByMemberAndIsCash(member, isCash);
+    }
+
+
 }
