@@ -43,14 +43,11 @@ public class PembelianController {
         dateNow = LocalDate.parse(dateNowString, formatter);
 
         PembelianModel pembelian = new PembelianModel();
-        pembelian.setListBarang(new ArrayList<>());
-        pembelian.getListBarang().add(new KuantitasPembelianModel());
 
         List<BarangModel> listBarang = barangService.getListBarang();
         List<MemberModel> listMember = memberService.getListMember();
 
         model.addAttribute("pembelian", pembelian);
-        model.addAttribute("listBarang", listBarang);
         model.addAttribute("listMember", listMember);
         model.addAttribute("dateNow", dateNow);
         return "form-add-pembelian";
@@ -63,9 +60,7 @@ public class PembelianController {
         String dateNowString = formatter.format(dateNow);
         dateNow = LocalDate.parse(dateNowString, formatter);
 
-        pembelian.getListBarang().add(new KuantitasPembelianModel());
         model.addAttribute("pembelian", pembelian);
-        model.addAttribute("listBarang", barangService.getListBarang());
         model.addAttribute("listMember", memberService.getListMember());
         model.addAttribute("dateNow", dateNow);
         return "form-add-pembelian";
@@ -80,7 +75,6 @@ public class PembelianController {
         dateNow = LocalDate.parse(dateNowString, formatter);
 
         Integer indexBarang = Integer.valueOf(request.getParameter("hapusBarang"));
-        pembelian.getListBarang().remove(indexBarang.intValue());
         model.addAttribute("pembelian", pembelian);
         model.addAttribute("listBarang", barangService.getListBarang());
         model.addAttribute("listMember", memberService.getListMember());
@@ -95,11 +89,8 @@ public class PembelianController {
         String dateNowString = formatter.format(dateNow);
         dateNow = LocalDate.parse(dateNowString, formatter);
         pembelian.setTanggalPembelian(dateNow);
-        for (KuantitasPembelianModel k : pembelian.getListBarang()) {
-            System.out.println(k.getBarang().getIdBarang() + " " + k.getPembelian().getIdPembelian());
-        }
         pembelianService.addPembelian(pembelian);
-//        pembelianService.setTotalHargaPembelian(pembelian);
+        pembelianService.setTotalHargaPembelian(pembelian);
         model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil ditambahkan!",
                 pembelian.getNomorInvoice()));
         return "info";

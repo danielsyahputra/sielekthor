@@ -55,6 +55,5 @@ public class PembelianModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MemberModel member;
 
-    @OneToMany(mappedBy = "pembelian", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<KuantitasPembelianModel> listBarang;
+
 }
