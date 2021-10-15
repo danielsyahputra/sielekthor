@@ -103,6 +103,7 @@ public class PembelianController {
         int totalHarga = 0;
         for (PembelianBarangModel pembelianBarang : pembelian.getListBarang()) {
             BarangModel barang = pembelianBarang.getBarang();
+            barang.setStokBarang(barang.getStokBarang() - pembelianBarang.getKuantitas());
             LocalDate tanggalGaransi = dateNow.plusDays(barang.getJumlahGaransi());
             pembelianBarang.setTanggalGaransi(tanggalGaransi);
             totalHarga += (barang.getHargaBarang() * pembelianBarang.getKuantitas());
@@ -137,5 +138,19 @@ public class PembelianController {
         model.addAttribute("jumlahBarang", jumlahBarang);
         model.addAttribute("listBarangPembelian", listBarangPembelian);
         return "detail-pembelian";
+    }
+
+    @GetMapping("/pembelian/hapus/{idPembelian}")
+    public String hapusPembelian(@PathVariable Long idPembelian, Model model) {
+        PembelianModel pembelian = pembelianService.getPembelianByIdPembelian(idPembelian);
+        for (PembelianBarangModel pembelianBarang :
+                pembelianBarangService.findPembelianBarangByPembelian(pembelian)) {
+            BarangModel barang = pembelianBarang.getBarang();
+            barang.setStokBarang(barang.getStokBarang() + pembelianBarang.getKuantitas());
+        }
+        pembelianService.hapusPembelian(pembelian);
+        model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil dihapus!",
+                pembelian.getNomorInvoice()));
+        return "info";
     }
 }

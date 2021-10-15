@@ -59,4 +59,8 @@ public class PembelianServiceImpl implements PembelianService{
         return listBarangPembelian;
     }
 
+    @Override
+    public void hapusPembelian(PembelianModel pembelian) {
+        pembelianDb.delete(pembelian);
+    }
 }

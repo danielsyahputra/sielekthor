@@ -11,4 +11,5 @@ public interface PembelianService {
     PembelianModel getPembelianByIdPembelian(Long idPembelian);
     Integer getJumlahBarangPembelian(PembelianModel pembelian);
     List<BarangModel> getListBarangPembelian(PembelianModel pembelian);
+    void hapusPembelian(PembelianModel pembelian);
 }
