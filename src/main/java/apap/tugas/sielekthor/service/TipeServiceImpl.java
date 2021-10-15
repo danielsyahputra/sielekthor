@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,5 +23,19 @@ public class TipeServiceImpl implements TipeService{
     @Override
     public List<TipeModel> getListTipe() {
         return tipeDb.findAll();
+    }
+
+    @Override
+    public TipeModel getTipeByIdTipe(Long idTipe) {
+        Optional<TipeModel> tipe = tipeDb.findByIdTipe(idTipe);
+        if (tipe.isPresent()) return tipe.get();
+        return null;
+    }
+
+    @Override
+    public TipeModel getTipeByNamaTipe(String namaTipe) {
+        Optional<TipeModel> tipe = tipeDb.findByNamaTipe(namaTipe);
+        if (tipe.isPresent()) return tipe.get();
+        return null;
     }
 }

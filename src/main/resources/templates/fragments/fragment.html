@@ -30,9 +30,11 @@
                         <a th:href="@{/}" class="brand-logo">SIELEKTHOR</a>
                         <ul class="right hide-on-med-and-down">
                             <li th:classappend="${#request.requestURI.contains('/barang') ? 'active':''}">
-                                <a th:href="@{/barang/viewall}">Barang</a>
+                                <a th:href="@{/barang}">Barang</a>
                             </li>
-                            <li><a href="">Pembelian</a></li>
+                            <li th:classappend="${#request.requestURI.contains('/pembelian') ? 'active':''}">
+                                <a th:href="@{/pembelian}">Pembelian</a>
+                            </li>
                             <li><a href="">Filter Pembelian</a></li>
                         </ul>
                     </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Home')" th:remove="tag"></object>
+</head>
+<body>
+    <div th:replace="fragments/fragment :: navbar"></div>
+    <div class="container">
+        <h3 class="center-align grey-text text-darken-1">Ubah Detail Member</h3>
+        <form th:action="@{/member/ubah}" th:object="${member}" class="col s12" method="post">
+            <input type="hidden" th:field="*{idMember}" />
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="nama_member" name="namaMember" th:value="*{namaMember}" type="text" class="validate">
+                    <label for="nama_member">Nama Member</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="tanggal_lahir" name="tanggalLahir" th:value="${#dates.format(member.tanggalLahir, 'dd-MM-yyyy')}"
+                           type="text" class="datepicker validate">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input id="tanggal_daftar" name="tanggalPendaftaran" th:value="${#dates.format(member.tanggalPendaftaran, 'dd-MM-yyyy')}"
+                           type="text" class="datepicker validate">
+                    <label for="tanggal_daftar">Tanggal Pendaftaran</label>
+                </div>
+            </div>
+            <p>
+                <label>
+                    <input class="with-gap" name="jenisKelamin" th:checked="*{jenisKelamin} == 1" th:value="1" type="radio"/>
+                    <span>Laki-laki</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input class="with-gap" name="jenisKelamin" th:checked="*{jenisKelamin} == 0" th:value="0" type="radio"/>
+                    <span>Perempuan</span>
+                </label>
+            </p>
+            <button type="submit" class="waves-effect waves-light btn indigo lighten-1">
+                <i class="material-icons left">send</i>
+                simpan
+            </button>
+        </form>
+    </div>
+    <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
+    <script>
+        $(document).ready(function(){
+            $('.datepicker').datepicker({ format: "dd-mm-yyyy" });
+        });
+    </script>
+</body>
+</html>

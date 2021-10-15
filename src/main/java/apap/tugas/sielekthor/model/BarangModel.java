@@ -61,6 +61,4 @@ public class BarangModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private TipeModel tipe;
 
-    @OneToMany(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<KuantitasPembelianModel> listKuantitas;
 }

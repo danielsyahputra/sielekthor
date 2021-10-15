@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Tambah Pembelian')" th:remove="tag"></object>
+</head>
+<body>
+    <div th:replace="fragments/fragment :: navbar"></div>
+    <div class="container">
+        <h3 class="center-align grey-text text-darken-1">Tambah Pembelian</h3>
+        <form th:action="@{/pembelian/tambah}" th:object="${pembelian}" class="col s12">
+            <input type="hidden" th:field="*{tanggalPembelian}"  />
+            <input type="hidden" th:field="*{totalPembelian}" />
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="nama_admin" name="namaAdmin" type="text" class="validate">
+                    <label for="nama_admin">Nama Admin</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select th:field="*{member}">
+                        <option value="" selected th:text="'--Pilih Member--'"></option>
+                        <option th:each="member: ${listMember}" th:value="${member.idMember}"
+                                th:text="${member.namaMember}"></option>
+                    </select>
+                    <label>Pembeli</label>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    <label>
+                        <input class="with-gap" name="isCash" th:value="1" type="radio"/>
+                        <span>Tunai</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input class="with-gap" name="isCash" th:value="0" type="radio"/>
+                        <span>Cicil</span>
+                    </label>
+                </p>
+            </div>
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th class="indigo-text">Daftar Barang</th>
+                        <th>
+                            <button type="submit" name="tambahBarang" class="btn-small waves-effect waves-light teal-green">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b, iterationStatus : *{listBarang}">
+                        <td>
+                            <div class="row">
+                                <input type="hidden" th:field="*{listBarang[__${iterationStatus.index}__].tanggalGaransi}">
+                                <div class="input-field col s12 m5">
+                                    <select th:field="*{listBarang[__${iterationStatus.index}__].barang}">
+                                        <option value="" selected th:text="'--Pilih Barang--'"></option>
+                                        <option th:each="barang: ${listBarang}" th:value="${barang.idBarang}"
+                                                th:text="${barang.namaBarang}"></option>
+                                    </select>
+                                    <label>Nama Barang</label>
+                                </div>
+                                <div class="input-field col s12 m5">
+                                    <input th:field="*{listBarang[__${iterationStatus.index}__].kuantitas}"
+                                           id="kuantitas" name="kuantitas" type="text" class="validate">
+                                    <label for="kuantitas">Kuantitas</label>
+                                </div>
+                                <label>Hapus barang</label><br>
+                                <button th:value="${iterationStatus.index}" type="submit" name="hapusBarang"
+                                        class="btn-small waves-effect waves-light red">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <button type="submit" name="simpan" class="waves-effect waves-light btn indigo lighten-1">
+                <i class="material-icons left">send</i>
+                simpan
+            </button>
+        </form>
+    </div>
+    <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+</body>
+</html>

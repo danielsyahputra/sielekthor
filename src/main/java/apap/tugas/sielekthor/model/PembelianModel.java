@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class PembelianModel implements Serializable {
     @NotNull
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date tanggalPembelian;
+    private LocalDate tanggalPembelian;
 
     @NotNull
     @Column(name = "total_pembelian", nullable = false)
@@ -47,13 +48,13 @@ public class PembelianModel implements Serializable {
     @NotNull
     @Size(max = 13)
     @Column(name = "nomor_invoice", nullable = false)
-    private String nomorInvoice = String.format("INV%s", this.idPembelian);
+    private String nomorInvoice;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_member", referencedColumnName = "idMember", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MemberModel member;
 
-    @OneToMany(mappedBy = "pembelian", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<KuantitasPembelianModel> listKuantitas;
+    @OneToMany(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PembelianBarangModel> listBarang;
 }

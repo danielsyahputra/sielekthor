@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,7 +24,7 @@ public class BarangController {
     @Autowired
     private TipeService tipeService;
 
-    @GetMapping("/barang/add")
+    @GetMapping("/barang/tambah")
     public String addBarangFormPage(Model model) {
         BarangModel barang = new BarangModel();
         List<TipeModel> listTipe = tipeService.getListTipe();
@@ -34,14 +33,14 @@ public class BarangController {
         return "form-add-barang";
     }
 
-    @PostMapping("/barang/add")
+    @PostMapping("/barang/tambah")
     public String addAgensiSubmitPage(@ModelAttribute BarangModel barang, Model model) {
         barangService.addBarang(barang);
         model.addAttribute("pesan", "Barang dengan kode barang " + barang.getKodeBarang() + " berhasil ditambahkan.");
         return "info";
     }
 
-    @GetMapping("/barang/viewall")
+    @GetMapping("/barang")
     public String viewAllBarang(Model model) {
         List<BarangModel> listBarang = barangService.getListBarang();
         model.addAttribute("listBarang", listBarang);
@@ -68,5 +67,32 @@ public class BarangController {
         String kodeBarang = updatedBarang.getKodeBarang();
         model.addAttribute("pesan", String.format("Barang dengan kode %s berhasil diubah!", kodeBarang));
         return "info";
+    }
+
+    @GetMapping("/barang/cari")
+    public String cariBarang(Model model) {
+        List<TipeModel> listTipe = tipeService.getListTipe();
+        List<BarangModel> listBarang = new ArrayList<>();
+        model.addAttribute("listBarang", listBarang);
+        model.addAttribute("listTipe", listTipe);
+        return "cari-barang";
+    }
+
+    @GetMapping("/barang/")
+    public String cariBarangBerdasarkanTipeDanStok(
+            @RequestParam(value = "namaTipe", required = false) String namaTipe,
+            @RequestParam(value = "isAvailable", required = false) Integer isAvailable,
+            Model model
+    ) {
+        if (namaTipe.equals("") || isAvailable == null) {
+            model.addAttribute("pesan", "Anda belum memasukkan pilihan yang anda inginkan!");
+            return "info";
+        }
+        TipeModel tipe = tipeService.getTipeByNamaTipe(namaTipe);
+        List<TipeModel> listTipe = tipeService.getListTipe();
+        List<BarangModel> listBarang = barangService.getListBarangByTipeAndAvailable(tipe, isAvailable);
+        model.addAttribute("listBarang", listBarang);
+        model.addAttribute("listTipe", listTipe);
+        return "cari-barang";
     }
 }

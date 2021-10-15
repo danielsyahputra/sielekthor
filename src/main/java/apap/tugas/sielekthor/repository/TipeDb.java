@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface TipeDb extends JpaRepository<TipeModel, Long> {
     Optional<TipeModel> findByIdTipe(Long idTipe);
+    Optional<TipeModel> findByNamaTipe(String namaTipe);
 }

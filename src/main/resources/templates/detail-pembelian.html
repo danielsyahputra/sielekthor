@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Detail Pembelian')" th:remove="tag"></object>
+</head>
+<body>
+    <div th:replace="fragments/fragment :: navbar"></div>
+    <div class="container">
+        <h3 class="center-align grey-text text-darken-1">Detail Pembelian</h3>
+        <div class="card-panel">
+            <p th:text="${pembelian.nomorInvoice}"></p>
+            <p th:text="${pembelian.totalPembelian}"></p>
+            <p th:text="${pembelian.member.namaMember}"></p>
+            <p th:text="${jumlahBarang}"></p>
+        </div>
+        <h4 class="center-align grey-text text-darken-1">Daftar Barang</h4>
+        <table class="responsive-table striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Merk</th>
+                    <th>Tipe</th>
+                    <th>Tanggal Garansi</th>
+                    <th>Harga</th>
+                    <th>Kuantitas</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="barang, iterationStatus : ${listBarangPembelian}">
+                    <td th:text="${iterationStatus.index}"></td>
+                    <td th:text="${barang.namaBarang}"></td>
+                    <td th:text="${barang.merkBarang}"></td>
+                    <td th:text="${barang.tipe.namaTipe}"></td>
+                    <td th:text="XXX"></td>
+                    <td th:text="${barang.hargaBarang}"></td>
+                    <td th:text="YYY"></td>
+                    <td th:text="ZZZ"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
+</body>
+</html>
