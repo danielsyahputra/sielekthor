@@ -48,7 +48,7 @@ public class PembelianModel implements Serializable {
     @NotNull
     @Size(max = 13)
     @Column(name = "nomor_invoice", nullable = false)
-    private String nomorInvoice = String.format("INV%s", this.idPembelian);
+    private String nomorInvoice = String.format("INV%d", this.idPembelian);
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_member", referencedColumnName = "idMember", nullable = false)

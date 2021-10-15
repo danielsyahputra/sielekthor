@@ -1,9 +1,6 @@
 package apap.tugas.sielekthor.controller;
 
-import apap.tugas.sielekthor.model.BarangModel;
-import apap.tugas.sielekthor.model.KuantitasPembelianModel;
-import apap.tugas.sielekthor.model.MemberModel;
-import apap.tugas.sielekthor.model.PembelianModel;
+import apap.tugas.sielekthor.model.*;
 import apap.tugas.sielekthor.service.BarangService;
 import apap.tugas.sielekthor.service.MemberService;
 import apap.tugas.sielekthor.service.PembelianService;
@@ -98,9 +95,12 @@ public class PembelianController {
         String dateNowString = formatter.format(dateNow);
         dateNow = LocalDate.parse(dateNowString, formatter);
         pembelian.setTanggalPembelian(dateNow);
+        for (KuantitasPembelianModel k : pembelian.getListBarang()) {
+            System.out.println(k.getBarang().getIdBarang() + " " + k.getPembelian().getIdPembelian());
+        }
         pembelianService.addPembelian(pembelian);
-        pembelianService.setTotalHargaPembelian(pembelian);
-        model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %d berhasil ditambahkan!",
+//        pembelianService.setTotalHargaPembelian(pembelian);
+        model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil ditambahkan!",
                 pembelian.getNomorInvoice()));
         return "info";
     }
