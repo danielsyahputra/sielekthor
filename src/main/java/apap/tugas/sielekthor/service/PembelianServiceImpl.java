@@ -70,5 +70,15 @@ public class PembelianServiceImpl implements PembelianService{
         return pembelianDb.findAllByMemberAndIsCash(member, isCash);
     }
 
+    @Override
+    public List<PembelianModel> cariPembelianBerdasarkanMember(MemberModel member) {
+        return pembelianDb.findAllByMember(member);
+    }
+
+    @Override
+    public List<PembelianModel> cariPembelianBerdasarkanIsCash(Integer isCash) {
+        return pembelianDb.findAllByIsCash(isCash);
+    }
+
 
 }

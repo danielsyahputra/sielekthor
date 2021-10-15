@@ -14,4 +14,6 @@ public interface PembelianService {
     List<BarangModel> getListBarangPembelian(PembelianModel pembelian);
     void hapusPembelian(PembelianModel pembelian);
     List<PembelianModel> cariPembelianBerdasarkanMemberDanPembayaran(MemberModel member, Integer isCash);
+    List<PembelianModel> cariPembelianBerdasarkanMember(MemberModel member);
+    List<PembelianModel> cariPembelianBerdasarkanIsCash(Integer isCash);
 }

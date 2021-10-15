@@ -1,7 +1,6 @@
 package apap.tugas.sielekthor.controller;
 
 import apap.tugas.sielekthor.model.MemberModel;
-import apap.tugas.sielekthor.model.PembelianBarangModel;
 import apap.tugas.sielekthor.model.PembelianModel;
 import apap.tugas.sielekthor.service.MemberService;
 import apap.tugas.sielekthor.service.PembelianBarangService;
@@ -33,10 +32,21 @@ public class PencarianController {
             @RequestParam(value = "tipePembayaran", required = false) Integer tipePembayaran,
             Model model
     ) {
+        Long defaultValue = (long) 0;
         List<MemberModel> listMember = memberService.getListMember();
         MemberModel member = memberService.getMemberByIdMember(idMember);
-        List<PembelianModel> listPembelian = pembelianService.cariPembelianBerdasarkanMemberDanPembayaran(member, tipePembayaran);
-        System.out.println(listPembelian);
+        List<PembelianModel> listPembelian = new ArrayList<>();
+        if (idMember == null || idMember.equals(defaultValue)) {
+            if (tipePembayaran != null) {
+                listPembelian = pembelianService.cariPembelianBerdasarkanIsCash(tipePembayaran);
+            }
+        } else {
+            if (tipePembayaran != null) {
+                listPembelian = pembelianService.cariPembelianBerdasarkanMemberDanPembayaran(member, tipePembayaran);
+            } else {
+                listPembelian = pembelianService.cariPembelianBerdasarkanMember(member);
+            }
+        }
         List<Integer> listKuantitas = new ArrayList<>();
         for (PembelianModel pembelian : listPembelian) {
             listKuantitas.add(pembelianService.getJumlahBarangPembelian(pembelian));
@@ -44,6 +54,7 @@ public class PencarianController {
         model.addAttribute("listPembelian", listPembelian);
         model.addAttribute("listKuantitas", listKuantitas);
         model.addAttribute("listMember", listMember);
+        model.addAttribute("defaultValue", defaultValue);
         return "cari-pembelian";
     }
 }

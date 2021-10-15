@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface PembelianDb extends JpaRepository<PembelianModel, Long> {
     Optional<PembelianModel> findByIdPembelian(Long idPembelian);
     List<PembelianModel> findAllByMemberAndIsCash(MemberModel member, Integer isCash);
+    List<PembelianModel> findAllByMember(MemberModel member);
+    List<PembelianModel> findAllByIsCash(Integer isCash);
 }
