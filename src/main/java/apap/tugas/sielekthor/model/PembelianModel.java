@@ -39,7 +39,7 @@ public class PembelianModel implements Serializable {
 
     @NotNull
     @Column(name = "total_pembelian", nullable = false)
-    private Integer totalPembelian = 0;
+    private Integer totalPembelian;
 
     @NotNull
     @Column(name = "is_cash", nullable = false)
@@ -48,12 +48,13 @@ public class PembelianModel implements Serializable {
     @NotNull
     @Size(max = 13)
     @Column(name = "nomor_invoice", nullable = false)
-    private String nomorInvoice = String.format("INV%d", this.idPembelian);
+    private String nomorInvoice;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_member", referencedColumnName = "idMember", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MemberModel member;
 
-
+    @OneToMany(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PembelianBarangModel> listBarang;
 }

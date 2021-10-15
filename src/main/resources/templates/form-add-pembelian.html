@@ -12,6 +12,7 @@
         <h3 class="center-align grey-text text-darken-1">Tambah Pembelian</h3>
         <form th:action="@{/pembelian/tambah}" th:object="${pembelian}" class="col s12" method="post">
             <input type="hidden" th:field="*{tanggalPembelian}"  />
+            <input type="hidden" th:field="*{totalPembelian}" />
             <div class="row">
                 <div class="input-field col s12 m6">
                     <input id="nama_admin" name="namaAdmin" type="text" class="validate">
@@ -57,8 +58,9 @@
                     <tr th:each="b, iterationStatus : *{listBarang}">
                         <td>
                             <div class="row">
+                                <input type="hidden" th:field="*{listBarang[__${iterationStatus.index}__].tanggalGaransi}">
                                 <div class="input-field col s12 m5">
-                                    <select th:field="*{listBarang[__${iterationStatus.index}__].barang.idBarang}">
+                                    <select th:field="*{listBarang[__${iterationStatus.index}__].barang}">
                                         <option value="" selected th:text="'--Pilih Barang--'"></option>
                                         <option th:each="barang: ${listBarang}" th:value="${barang.idBarang}"
                                                 th:text="${barang.namaBarang}"></option>

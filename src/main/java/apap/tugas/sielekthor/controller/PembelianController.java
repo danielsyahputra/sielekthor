@@ -43,12 +43,12 @@ public class PembelianController {
         dateNow = LocalDate.parse(dateNowString, formatter);
 
         PembelianModel pembelian = new PembelianModel();
-
-        List<BarangModel> listBarang = barangService.getListBarang();
-        List<MemberModel> listMember = memberService.getListMember();
+        pembelian.setListBarang(new ArrayList<>());
+        pembelian.getListBarang().add(new PembelianBarangModel());
 
         model.addAttribute("pembelian", pembelian);
-        model.addAttribute("listMember", listMember);
+        model.addAttribute("listBarang", barangService.getListBarang());
+        model.addAttribute("listMember", memberService.getListMember());
         model.addAttribute("dateNow", dateNow);
         return "form-add-pembelian";
     }
@@ -60,7 +60,10 @@ public class PembelianController {
         String dateNowString = formatter.format(dateNow);
         dateNow = LocalDate.parse(dateNowString, formatter);
 
+        pembelian.getListBarang().add(new PembelianBarangModel());
+
         model.addAttribute("pembelian", pembelian);
+        model.addAttribute("listBarang", barangService.getListBarang());
         model.addAttribute("listMember", memberService.getListMember());
         model.addAttribute("dateNow", dateNow);
         return "form-add-pembelian";
@@ -75,6 +78,7 @@ public class PembelianController {
         dateNow = LocalDate.parse(dateNowString, formatter);
 
         Integer indexBarang = Integer.valueOf(request.getParameter("hapusBarang"));
+        pembelian.getListBarang().remove(indexBarang.intValue());
         model.addAttribute("pembelian", pembelian);
         model.addAttribute("listBarang", barangService.getListBarang());
         model.addAttribute("listMember", memberService.getListMember());
@@ -89,8 +93,18 @@ public class PembelianController {
         String dateNowString = formatter.format(dateNow);
         dateNow = LocalDate.parse(dateNowString, formatter);
         pembelian.setTanggalPembelian(dateNow);
+        pembelian.setNomorInvoice("INV1");
+
+        int totalHarga = 0;
+        for (PembelianBarangModel pembelianBarang : pembelian.getListBarang()) {
+            BarangModel barang = pembelianBarang.getBarang();
+            LocalDate tanggalGaransi = dateNow.plusDays(barang.getJumlahGaransi());
+            pembelianBarang.setTanggalGaransi(tanggalGaransi);
+            totalHarga += (barang.getHargaBarang() * pembelianBarang.getKuantitas());
+        }
+        pembelian.setTotalPembelian(totalHarga);
+
         pembelianService.addPembelian(pembelian);
-        pembelianService.setTotalHargaPembelian(pembelian);
         model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil ditambahkan!",
                 pembelian.getNomorInvoice()));
         return "info";
