@@ -17,12 +17,14 @@ public class PembelianServiceImpl implements PembelianService{
     @Autowired
     PembelianDb pembelianDb;
 
-    @Autowired
-    BarangService barangService;
-
     @Override
     public void addPembelian(PembelianModel pembelian) {
         pembelianDb.save(pembelian);
+    }
+
+    @Override
+    public List<PembelianModel> getListPembelian() {
+        return pembelianDb.findAll();
     }
 
 }

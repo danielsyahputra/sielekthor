@@ -30,6 +30,11 @@ public class PembelianBarangModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private BarangModel barang;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_pembelian", referencedColumnName = "idPembelian", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private PembelianModel pembelian;
+
     private Integer kuantitas;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")

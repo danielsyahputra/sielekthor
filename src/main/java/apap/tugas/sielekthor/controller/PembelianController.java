@@ -3,6 +3,7 @@ package apap.tugas.sielekthor.controller;
 import apap.tugas.sielekthor.model.*;
 import apap.tugas.sielekthor.service.BarangService;
 import apap.tugas.sielekthor.service.MemberService;
+import apap.tugas.sielekthor.service.PembelianBarangService;
 import apap.tugas.sielekthor.service.PembelianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,6 +33,9 @@ public class PembelianController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private PembelianBarangService pembelianBarangService;
 
     @GetMapping("/pembelian/tambah")
     public String tambahPembelianFormPage(Model model) {
@@ -101,6 +105,7 @@ public class PembelianController {
             LocalDate tanggalGaransi = dateNow.plusDays(barang.getJumlahGaransi());
             pembelianBarang.setTanggalGaransi(tanggalGaransi);
             totalHarga += (barang.getHargaBarang() * pembelianBarang.getKuantitas());
+            pembelianBarang.setPembelian(pembelian);
         }
         pembelian.setTotalPembelian(totalHarga);
 
@@ -112,6 +117,18 @@ public class PembelianController {
 
     @GetMapping("/pembelian")
     public String viewAllPembelian(Model model) {
+        List<PembelianModel> listPembelian = pembelianService.getListPembelian();
+        List<Integer> listKuantitas = new ArrayList<>();
+        for (PembelianModel pembelian : listPembelian) {
+            int jumlahBarang = 0;
+            for (PembelianBarangModel pembelianBarang :
+                    pembelianBarangService.findPembelianBarangByPembelian(pembelian)) {
+                jumlahBarang += pembelianBarang.getKuantitas();
+            }
+            listKuantitas.add(jumlahBarang);
+        }
+        model.addAttribute("listPembelian", listPembelian);
+        model.addAttribute("listKuantitas", listKuantitas);
         return "viewall-pembelian";
     }
 }
