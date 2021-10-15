@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -120,15 +121,21 @@ public class PembelianController {
         List<PembelianModel> listPembelian = pembelianService.getListPembelian();
         List<Integer> listKuantitas = new ArrayList<>();
         for (PembelianModel pembelian : listPembelian) {
-            int jumlahBarang = 0;
-            for (PembelianBarangModel pembelianBarang :
-                    pembelianBarangService.findPembelianBarangByPembelian(pembelian)) {
-                jumlahBarang += pembelianBarang.getKuantitas();
-            }
-            listKuantitas.add(jumlahBarang);
+            listKuantitas.add(pembelianService.getJumlahBarangPembelian(pembelian));
         }
         model.addAttribute("listPembelian", listPembelian);
         model.addAttribute("listKuantitas", listKuantitas);
         return "viewall-pembelian";
+    }
+
+    @GetMapping("/pembelian/{idPembelian}")
+    public String viewDetailPembelian(@PathVariable Long idPembelian, Model model) {
+        PembelianModel pembelian = pembelianService.getPembelianByIdPembelian(idPembelian);
+        int jumlahBarang = pembelianService.getJumlahBarangPembelian(pembelian);
+        List<BarangModel> listBarangPembelian = pembelianService.getListBarangPembelian(pembelian);
+        model.addAttribute("pembelian", pembelian);
+        model.addAttribute("jumlahBarang", jumlahBarang);
+        model.addAttribute("listBarangPembelian", listBarangPembelian);
+        return "detail-pembelian";
     }
 }

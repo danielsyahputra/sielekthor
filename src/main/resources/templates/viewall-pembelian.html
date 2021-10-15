@@ -32,7 +32,7 @@
                     <td th:text="${pembelian.tanggalPembelian}"></td>
                     <td>
                         <a class="btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                        <a class="waves-effect waves-light btn-small">Lihat</a>
+                        <a th:href="@{/pembelian/} + ${pembelian.idPembelian}" class="waves-effect waves-light btn-small">Lihat</a>
                     </td>
                 </tr>
             </tbody>
