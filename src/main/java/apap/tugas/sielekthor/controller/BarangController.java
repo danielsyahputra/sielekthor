@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -68,5 +67,32 @@ public class BarangController {
         String kodeBarang = updatedBarang.getKodeBarang();
         model.addAttribute("pesan", String.format("Barang dengan kode %s berhasil diubah!", kodeBarang));
         return "info";
+    }
+
+    @GetMapping("/barang/cari")
+    public String cariBarang(Model model) {
+        List<TipeModel> listTipe = tipeService.getListTipe();
+        List<BarangModel> listBarang = new ArrayList<>();
+        model.addAttribute("listBarang", listBarang);
+        model.addAttribute("listTipe", listTipe);
+        return "cari-barang";
+    }
+
+    @GetMapping("/barang/")
+    public String cariBarangBerdasarkanTipeDanStok(
+            @RequestParam(value = "namaTipe", required = false) String namaTipe,
+            @RequestParam(value = "isAvailable", required = false) Integer isAvailable,
+            Model model
+    ) {
+        if (namaTipe.equals("") || isAvailable == null) {
+            model.addAttribute("pesan", "Anda belum memasukkan pilihan yang anda inginkan!");
+            return "info";
+        }
+        TipeModel tipe = tipeService.getTipeByNamaTipe(namaTipe);
+        List<TipeModel> listTipe = tipeService.getListTipe();
+        List<BarangModel> listBarang = barangService.getListBarangByTipeAndAvailable(tipe, isAvailable);
+        model.addAttribute("listBarang", listBarang);
+        model.addAttribute("listTipe", listTipe);
+        return "cari-barang";
     }
 }

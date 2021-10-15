@@ -57,4 +57,5 @@ public class PencarianController {
         model.addAttribute("defaultValue", defaultValue);
         return "cari-pembelian";
     }
+    
 }
