@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "member")
-public class MemberModel implements Serializable {
+public class MemberModel implements Serializable, Comparable<MemberModel> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMember;
@@ -45,4 +45,13 @@ public class MemberModel implements Serializable {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PembelianModel> listPembelian;
+
+    @Override
+    public int compareTo(MemberModel otherMember) {
+        int jumlahPembelian = this.getListPembelian().size();
+        int jumlahPembelianMemberLain = otherMember.getListPembelian().size();
+        if ( jumlahPembelian < jumlahPembelianMemberLain) return 1;
+        if (jumlahPembelian == jumlahPembelianMemberLain) return 0;
+        return -1;
+    }
 }

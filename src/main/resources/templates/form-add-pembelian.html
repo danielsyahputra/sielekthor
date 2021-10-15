@@ -10,7 +10,7 @@
     <div th:replace="fragments/fragment :: navbar"></div>
     <div class="container">
         <h3 class="center-align grey-text text-darken-1">Tambah Pembelian</h3>
-        <form th:action="@{/pembelian/tambah}" th:object="${pembelian}" class="col s12">
+        <form th:action="@{/pembelian/tambah}" th:object="${pembelian}" method="post" class="col s12">
             <input type="hidden" th:field="*{tanggalPembelian}"  />
             <input type="hidden" th:field="*{totalPembelian}" />
             <div class="row">
@@ -81,7 +81,6 @@
                         </td>
                     </tr>
                 </tbody>
-
             </table>
             <button type="submit" name="simpan" class="waves-effect waves-light btn indigo lighten-1">
                 <i class="material-icons left">send</i>

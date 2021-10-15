@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Member;
+import java.util.*;
 
 @Service
 @Transactional
@@ -38,5 +38,11 @@ public class MemberServiceImpl implements MemberService{
         return member;
     }
 
+    @Override
+    public List<MemberModel> getMemberPalingBanyakBeli() {
+        List<MemberModel> listMember = memberDb.findAll();
+        Collections.sort(listMember);
+        return listMember;
+    }
 
 }
