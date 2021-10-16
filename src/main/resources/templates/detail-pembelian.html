@@ -11,10 +11,14 @@
     <div class="container">
         <h3 class="center-align grey-text text-darken-1">Detail Pembelian</h3>
         <div class="card-panel">
-            <p th:text="${pembelian.nomorInvoice}"></p>
-            <p th:text="${pembelian.totalPembelian}"></p>
-            <p th:text="${pembelian.member.namaMember}"></p>
-            <p th:text="${jumlahBarang}"></p>
+            <p th:text="'Nomor Invoice          : ' + ${pembelian.nomorInvoice}"></p>
+            <p th:text="'Total Harga            : ' + ${pembelian.totalPembelian}"></p>
+            <p th:text="'Member                 : ' + ${pembelian.member.namaMember}"></p>
+            <p th:text="'Jumlah Barang          : ' + ${jumlahBarang}"></p>
+            <p th:text="'Tanggal Pembelian      : ' + ${pembelian.tanggalPembelian}"></p>
+            <p th:text="'Nama Admin             : ' + ${pembelian.namaAdmin}"></p>
+            <p th:if="${pembelian.isCash} == 1">Metode Pembayaran: Tunai</p>
+            <p th:if="${pembelian.isCash} == 0">Metode Pembayaran: Cicil</p>
         </div>
         <h4 class="center-align grey-text text-darken-1">Daftar Barang</h4>
         <table class="responsive-table striped">
@@ -32,14 +36,14 @@
             </thead>
             <tbody>
                 <tr th:each="barang, iterationStatus : ${listBarangPembelian}">
-                    <td th:text="${iterationStatus.index}"></td>
+                    <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${barang.namaBarang}"></td>
                     <td th:text="${barang.merkBarang}"></td>
                     <td th:text="${barang.tipe.namaTipe}"></td>
-                    <td th:text="XXX"></td>
+                    <td th:text="${listTanggalGaransi[__${iterationStatus.index}__]}"></td>
                     <td th:text="${barang.hargaBarang}"></td>
-                    <td th:text="YYY"></td>
-                    <td th:text="ZZZ"></td>
+                    <td th:text="${listKuantitas[__${iterationStatus.index}__]}"></td>
+                    <td th:text="${listTotalHarga[__${iterationStatus.index}__]}"></td>
                 </tr>
             </tbody>
         </table>

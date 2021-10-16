@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -136,9 +134,23 @@ public class PembelianController {
         PembelianModel pembelian = pembelianService.getPembelianByIdPembelian(idPembelian);
         int jumlahBarang = pembelianService.getJumlahBarangPembelian(pembelian);
         List<BarangModel> listBarangPembelian = pembelianService.getListBarangPembelian(pembelian);
+        List<Integer> listKuantitas = new ArrayList<>();
+        List<Integer> listTotalHarga = new ArrayList<>();
+        List<LocalDate> listTanggalGaransi = new ArrayList<>();
+        for (BarangModel barang : listBarangPembelian) {
+            PembelianBarangModel pembelianBarang = pembelianBarangService.getPembelianBarangByBarang(barang, pembelian);
+            int kuantitas = pembelianBarang.getKuantitas();
+            int harga = barang.getHargaBarang();
+            listKuantitas.add(kuantitas);
+            listTotalHarga.add(harga * kuantitas);
+            listTanggalGaransi.add(pembelianBarang.getTanggalGaransi());
+        }
         model.addAttribute("pembelian", pembelian);
         model.addAttribute("jumlahBarang", jumlahBarang);
         model.addAttribute("listBarangPembelian", listBarangPembelian);
+        model.addAttribute("listKuantitas", listKuantitas);
+        model.addAttribute("listTotalHarga", listTotalHarga);
+        model.addAttribute("listTanggalGaransi", listTanggalGaransi);
         return "detail-pembelian";
     }
 
