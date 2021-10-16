@@ -37,6 +37,7 @@ public class BarangController {
     public String addAgensiSubmitPage(@ModelAttribute BarangModel barang, Model model) {
         barangService.addBarang(barang);
         model.addAttribute("pesan", "Barang dengan kode barang " + barang.getKodeBarang() + " berhasil ditambahkan.");
+        model.addAttribute("link", "barang");
         return "info";
     }
 
@@ -51,6 +52,7 @@ public class BarangController {
     public String viewDetailBarang(@PathVariable Long idBarang, Model model) {
         BarangModel barang = barangService.getBarangByIdBarang(idBarang);
         model.addAttribute("barang", barang);
+        model.addAttribute("link", "barang");
         return "detail-barang";
     }
 
@@ -58,6 +60,7 @@ public class BarangController {
     public String ubahBarangByIdBarangFormPage(@PathVariable Long idBarang, Model model) {
         BarangModel barang = barangService.getBarangByIdBarang(idBarang);
         model.addAttribute("barang", barang);
+        model.addAttribute("link", "barang");
         return "form-ubah-barang";
     }
 
@@ -66,6 +69,7 @@ public class BarangController {
         BarangModel updatedBarang = barangService.ubahBarang(barang);
         String kodeBarang = updatedBarang.getKodeBarang();
         model.addAttribute("pesan", String.format("Barang dengan kode %s berhasil diubah!", kodeBarang));
+        model.addAttribute("link", String.format("barang/%d", updatedBarang.getIdBarang()));
         return "info";
     }
 

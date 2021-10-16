@@ -9,10 +9,18 @@
 <body>
     <div th:replace="fragments/fragment :: navbar"></div>
     <div class="container">
-        <h3 class="center-align grey-text text-darken-1">Detail Barang</h3>
-        <p th:text="'Id Barang: ' + ${barang.idBarang}"></p>
-        <p th:text="'Nama Barang: ' + ${barang.namaBarang}"></p>
-        <p th:text="'Kode Barang: ' + ${barang.kodeBarang}"></p>
+        <div class="card-panel">
+            <h3 class="center-align grey-text text-darken-1">Detail Barang</h3>
+            <p th:text="'Nama Barang            : ' + ' ' + ${barang.namaBarang}"></p>
+            <p th:text="'Kode Barang            : ' + ' ' + ${barang.kodeBarang}"></p>
+            <p th:text="'Merk Barang            : ' + ' ' + ${barang.merkBarang}"></p>
+            <p th:text="'Stok Barang            : ' + ' ' + ${barang.stokBarang}"></p>
+            <p th:text="'Garansi Toko           : ' + ' ' + ${barang.jumlahGaransi}"></p>
+            <p th:text="'Deskripsi Barang       : ' + ' ' + ${barang.deskripsiBarang}"></p>
+            <p th:text="'Tipe Barang            : ' + ' ' + ${barang.tipe.namaTipe}"></p>
+            <p th:text="'Harga Barang           : ' + ' ' + ${barang.hargaBarang}"></p>
+        </div>
+        <a th:href="@{/} + ${link}" class="waves-effect waves-light btn orange">Kembali</a>
     </div>
     <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
 </body>

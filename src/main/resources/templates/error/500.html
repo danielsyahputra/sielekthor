@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-    <object th:include="fragments/fragment :: title (current='Home')" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Error')" th:remove="tag"></object>
 </head>
 <body>
     <div th:replace="fragments/fragment :: navbar"></div>
     <div class="container">
         <div class="card-panel">
-            <h5 th:text="${pesan}" class="center-align black-text"></h5>
-            <a th:href="@{/} + ${link}" class="waves-effect waves-light btn orange">Kembali</a>
+            <h3 th:text="'Ada yang salah :('" class="center-align black-text"></h3>
+            <a th:href="@{/}" class="waves-effect waves-light btn orange">
+                <i class="material-icons left">home</i>Kembali</a>
         </div>
     </div>
     <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>

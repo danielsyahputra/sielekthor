@@ -35,7 +35,12 @@
                             <li th:classappend="${#request.requestURI.contains('/pembelian') ? 'active':''}">
                                 <a th:href="@{/pembelian}">Pembelian</a>
                             </li>
-                            <li><a href="">Filter Pembelian</a></li>
+                            <li>
+                                <a href="">Filter Pembelian</a>
+                            </li>
+                            <li th:classappend="${#request.requestURI.contains('/member') ? 'active':''}">
+                                <a th:href="@{/member}">Member</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
