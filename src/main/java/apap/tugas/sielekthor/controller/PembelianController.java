@@ -112,6 +112,7 @@ public class PembelianController {
         pembelian.setTotalPembelian(totalHarga);
 
         pembelianService.addPembelian(pembelian);
+        pembelianService.generateNomorInvoicePembelian(pembelian);
         model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil ditambahkan!",
                 pembelian.getNomorInvoice()));
         model.addAttribute("link", "pembelian");

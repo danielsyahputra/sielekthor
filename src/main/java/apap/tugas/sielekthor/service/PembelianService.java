@@ -4,6 +4,7 @@ import apap.tugas.sielekthor.model.BarangModel;
 import apap.tugas.sielekthor.model.MemberModel;
 import apap.tugas.sielekthor.model.PembelianModel;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 public interface PembelianService {
@@ -16,4 +17,5 @@ public interface PembelianService {
     List<PembelianModel> cariPembelianBerdasarkanMemberDanPembayaran(MemberModel member, Integer isCash);
     List<PembelianModel> cariPembelianBerdasarkanMember(MemberModel member);
     List<PembelianModel> cariPembelianBerdasarkanIsCash(Integer isCash);
+    void generateNomorInvoicePembelian(PembelianModel pembelian);
 }
