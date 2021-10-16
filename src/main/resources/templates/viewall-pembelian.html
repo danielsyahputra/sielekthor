@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="pembelian, iterationStatus : ${listPembelian}">
-                        <td th:text="${iterationStatus.index}"></td>
+                        <td th:text="${iterationStatus.count}"></td>
                         <td th:text="${pembelian.nomorInvoice}"></td>
                         <td th:text="${pembelian.totalPembelian}"></td>
                         <td th:text="${pembelian.member.namaMember}"></td>

@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="barang, iterationStatus : ${listBarang}">
-                        <td th:text="${iterationStatus.index}"></td>
+                        <td th:text="${iterationStatus.count}"></td>
                         <td th:text="${barang.namaBarang}"></td>
                         <td th:text="${barang.hargaBarang}"></td>
                         <td th:text="${barang.tipe.namaTipe}"></td>
