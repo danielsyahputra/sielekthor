@@ -36,16 +36,23 @@ Apabila semua langkah diatas berhasil, kamu akan mendapatkan tampilan seperti in
 
 ![Member](https://i.ibb.co/NtmfxFQ/list-Member.png)
 
-#### 4. Pencarian
+#### 4. Menu Pencarian
 
 ![Pencarian](https://i.ibb.co/KGjmCrB/pencarian.png)
 
+#### 5. Pencarian Pembelian
 
-#### 5. Bonus
+![Pencarian Pembelian](https://i.ibb.co/Z2yTrn2/cari-Pembelian.png)
+
+#### 6. Pencarian Barang
+
+![Pencarian](https://i.ibb.co/pfJLg4w/cari-Barang.png)
+
+#### 7. Bonus
 
 ![Pencarian](https://i.ibb.co/kShQK0Y/bonus.png)
 
-#### 6. Tampilan sederhana penambahan
+#### 8. Tampilan sederhana penambahan
 
 ![Tambah](https://i.ibb.co/7WmF6VY/tambah-Barang.png)
 
