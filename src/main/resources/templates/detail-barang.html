@@ -9,8 +9,8 @@
 <body>
     <div th:replace="fragments/fragment :: navbar"></div>
     <div class="container">
+        <h3 class="center-align grey-text text-darken-1">Detail Barang</h3>
         <div class="card-panel">
-            <h3 class="center-align grey-text text-darken-1">Detail Barang</h3>
             <p th:text="'Nama Barang            : ' + ' ' + ${barang.namaBarang}"></p>
             <p th:text="'Kode Barang            : ' + ' ' + ${barang.kodeBarang}"></p>
             <p th:text="'Merk Barang            : ' + ' ' + ${barang.merkBarang}"></p>

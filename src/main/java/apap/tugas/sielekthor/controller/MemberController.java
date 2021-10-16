@@ -31,6 +31,7 @@ public class MemberController {
     public String tambahMemberSubmitForm(@ModelAttribute MemberModel member, Model model) {
         memberService.addMember(member);
         model.addAttribute("pesan", String.format("Member dengan nama %s berhasil ditambahkan!", member.getNamaMember()));
+        model.addAttribute("link", "member");
         return "info";
     }
 
@@ -51,7 +52,8 @@ public class MemberController {
     @PostMapping("/member/ubah")
     public String ubahMemberSubmitPage(@ModelAttribute MemberModel member, Model model) {
         MemberModel updatedMember = memberService.ubahMember(member);
-        model.addAttribute("pesan", String.format("Data member %d berhasil diubah.", updatedMember.getNamaMember()));
+        model.addAttribute("pesan", String.format("Data member %s berhasil diubah.", updatedMember.getNamaMember()));
+        model.addAttribute("link", "member");
         return "info";
     }
 }

@@ -26,6 +26,11 @@ public class PencarianController {
     @Autowired
     PembelianBarangService pembelianBarangService;
 
+    @GetMapping("/cari")
+    public String menuPencarian(Model model) {
+        return "menu-pencarian";
+    }
+
     @GetMapping("/cari/pembelian")
     public String cariPembelianBerdasarkanMemberDanPembayaran(
             @RequestParam(value = "idMember", required = false) Long idMember,

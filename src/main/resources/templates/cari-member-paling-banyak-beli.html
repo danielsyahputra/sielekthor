@@ -9,30 +9,37 @@
 <body>
     <div th:replace="fragments/fragment :: navbar"></div>
     <div class="container">
-        <h3 class="center-align grey-text text-darken-1">Cari Member</h3>
-        <table class="responsive-table striped">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Tanggal Pendaftaran</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Jumlah Pembelian</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="member, iterationStatus : ${listMember}">
-                    <td th:text="${iterationStatus.count}"></td>
-                    <td th:text="${member.namaMember}"></td>
-                    <td th:text="${#dates.format(member.tanggalLahir, 'dd-MM-yyyy')}"></td>
-                    <td th:text="${#dates.format(member.tanggalPendaftaran, 'dd-MM-yyyy')}"></td>
-                    <td th:if="${member.jenisKelamin} == 1">Laki-Laki</td>
-                    <td th:if="${member.jenisKelamin} == 0">Perempuan</td>
-                    <td th:text="${member.listPembelian.size()}"></td>
-                </tr>
-            </tbody>
-        </table>
+        <h3 class="center-align grey-text text-darken-1">Member dengan Pembelian Terbanyak</h3>
+        <div th:if="${listMember.size() != 0}">
+            <div class="card-panel">
+                <table class="responsive-table striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Tanggal Pendaftaran</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Jumlah Pembelian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="member, iterationStatus : ${listMember}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${member.namaMember}"></td>
+                            <td th:text="${#dates.format(member.tanggalLahir, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${#dates.format(member.tanggalPendaftaran, 'dd-MM-yyyy')}"></td>
+                            <td th:if="${member.jenisKelamin} == 1">Laki-Laki</td>
+                            <td th:if="${member.jenisKelamin} == 0">Perempuan</td>
+                            <td th:text="${member.listPembelian.size()}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div th:if="${listMember.size() <= 0}">
+            <h5 class="indigo-text">Belum ditemukan barang!</h5>
+        </div>
     </div>
     <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
 </body>

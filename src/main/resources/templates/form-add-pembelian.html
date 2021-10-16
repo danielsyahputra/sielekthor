@@ -11,37 +11,41 @@
     <div class="container">
         <h3 class="center-align grey-text text-darken-1">Tambah Pembelian</h3>
         <form th:action="@{/pembelian/tambah}" th:object="${pembelian}" method="post" class="col s12">
-            <input type="hidden" th:field="*{tanggalPembelian}"  />
-            <input type="hidden" th:field="*{totalPembelian}" />
-            <div class="row">
-                <div class="input-field col s12 m6">
-                    <input id="nama_admin" name="namaAdmin" type="text" class="validate">
-                    <label for="nama_admin">Nama Admin</label>
+            <div class="card-panel">
+                <input type="hidden" th:field="*{tanggalPembelian}"  />
+                <input type="hidden" th:field="*{totalPembelian}" />
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">person</i>
+                        <input id="nama_admin" name="namaAdmin" type="text" class="validate">
+                        <label for="nama_admin">Nama Admin</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12 m6">
-                    <select th:field="*{member}">
-                        <option value="" selected th:text="'--Pilih Member--'"></option>
-                        <option th:each="member: ${listMember}" th:value="${member.idMember}"
-                                th:text="${member.namaMember}"></option>
-                    </select>
-                    <label>Pembeli</label>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">list</i>
+                        <select th:field="*{member}">
+                            <option value="" selected th:text="'--Pilih Member--'"></option>
+                            <option th:each="member: ${listMember}" th:value="${member.idMember}"
+                                    th:text="${member.namaMember}"></option>
+                        </select>
+                        <label>Pembeli</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <p>
-                    <label>
-                        <input class="with-gap" name="isCash" th:value="1" type="radio"/>
-                        <span>Tunai</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input class="with-gap" name="isCash" th:value="0" type="radio"/>
-                        <span>Cicil</span>
-                    </label>
-                </p>
+                <div class="row">
+                    <p>
+                        <label>
+                            <input class="with-gap" name="isCash" th:value="1" type="radio"/>
+                            <span>Tunai</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="with-gap" name="isCash" th:value="0" type="radio"/>
+                            <span>Cicil</span>
+                        </label>
+                    </p>
+                </div>
             </div>
             <table class="responsive-table">
                 <thead>
@@ -82,11 +86,16 @@
                     </tr>
                 </tbody>
             </table>
+            <a th:href="@{/pembelian}" class="waves-effect waves-light btn red lighten-1">
+                <i class="material-icons left">close</i>
+                batal
+            </a>
             <button type="submit" name="simpan" class="waves-effect waves-light btn indigo lighten-1">
                 <i class="material-icons left">send</i>
                 simpan
             </button>
         </form>
+        <br>
     </div>
     <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
     <script>

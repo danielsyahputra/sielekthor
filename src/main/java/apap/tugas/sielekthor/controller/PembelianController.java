@@ -114,6 +114,7 @@ public class PembelianController {
         pembelianService.addPembelian(pembelian);
         model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil ditambahkan!",
                 pembelian.getNomorInvoice()));
+        model.addAttribute("link", "pembelian");
         return "info";
     }
 
@@ -151,6 +152,7 @@ public class PembelianController {
         pembelianService.hapusPembelian(pembelian);
         model.addAttribute("pesan", String.format("Pembelian dengan nomor invoice %s berhasil dihapus!",
                 pembelian.getNomorInvoice()));
+        model.addAttribute("link", "pembelian");
         return "info";
     }
 }

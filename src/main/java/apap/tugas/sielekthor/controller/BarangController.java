@@ -90,6 +90,7 @@ public class BarangController {
     ) {
         if (namaTipe.equals("") || isAvailable == null) {
             model.addAttribute("pesan", "Anda belum memasukkan pilihan yang anda inginkan!");
+            model.addAttribute("link", "barang/cari");
             return "info";
         }
         TipeModel tipe = tipeService.getTipeByNamaTipe(namaTipe);

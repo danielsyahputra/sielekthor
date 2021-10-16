@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <object th:include="fragments/fragment :: materializecss" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Pencarian')" th:remove="tag"></object>
+</head>
+<body>
+    <div th:replace="fragments/fragment :: navbar"></div>
+    <div class="container">
+        <div class="card-panel">
+            <div class="card-panel orange">
+                <h4 class="center-align white-text">Menu Pencarian SIELEKTHOR</h4>
+            </div>
+            <br>
+            <h5 class="center-align grey-text">List of Features:</h5>
+            <div class="center-align">
+                <a th:href="@{/cari/pembelian}" class="waves-effect waves-light btn-large orange">
+                    <i class="material-icons left">search</i>Cari Pembelian</a>
+                <a th:href="@{/barang/cari}" class="waves-effect waves-light btn-large orange">
+                    <i class="material-icons left">search</i>Cari Barang</a>
+            </div>
+        </div>
+    </div>
+    <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
+</body>
+</html>

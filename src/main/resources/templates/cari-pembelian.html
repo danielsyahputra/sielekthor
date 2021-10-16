@@ -71,6 +71,9 @@
                 </tbody>
             </table>
         </div>
+        <div th:if="${listPembelian.size() <= 0}">
+            <h5 class="indigo-text">Tidak ditemukan pembelian!</h5>
+        </div>
     </div>
     <object th:include="fragments/fragment :: materializejs" th:remove="tag"></object>
     <script>
